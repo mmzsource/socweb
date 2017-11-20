@@ -13,6 +13,9 @@ competition.
 ## Usage
 
 `lein run 8000` if you want to run the webserver on port 8000
+`git push heroku master` if you want to deploy on heroku
+
+The (developing) website is [here](https://legendary-mastermind-science.herokuapp.com)
 
 ## Lessons learned
 
@@ -40,12 +43,17 @@ the adapter. Example: add a content-type header. That's not a task that
 middleware. Lots of default middleware available, e.g. wrap-reload to reload all
 changed namespaces on request.
 
+An app typically consists of:
+
+- An adapter
+- n middleware handlers
+- A Handler
+
 There are 2 parts to **Compojure**:
 
 - Routing; running different code based on the URL path (e.g. "/", "/about")
 - HTTP Method switching: running different code based on the called HTTP request
   method (e.g. GET, POST, PUT, DELETE)
-
 
 
 ## License

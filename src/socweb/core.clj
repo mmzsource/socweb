@@ -6,9 +6,14 @@
             [compojure.route        :refer [not-found]]))
 
 
-(defn hello [request]
+(defn welcome [request]
   {:status 200
    :body   "Website to visualise soccer penalty point stats."})
+
+
+(defn about [request]
+  {:status 200}
+  {:body   "Soccer penalty point stats will follow soon."})
 
 
 (def ops
@@ -30,16 +35,11 @@
        :body   (str "Unknown operator: " op " Supported operators: + - * :")})))
 
 
-(defn about [request]
-  {:status 200}
-  {:body   "Soccer penalty point stats will follow soon."})
-
-
 (defroutes app
-  (GET "/"         [] hello)
+  (GET "/"         [] welcome)
+  (GET "/about"    [] about)
   (GET "/request"  [] handle-dump) ;; standard ring handler; see dependencies
   (GET "/calc/:x/:op/:y" [] calc)
-  (GET "/about"    [] about)
   (not-found "Page not found."))
 
 
@@ -49,9 +49,9 @@
    {:port (Integer. port)}))
 
 
-;; Main that's only used in development;
-;; Hot reloads changed namespaces
-(defn -dev-main [port]
+(defn -dev-main
+  "Main that's only used in development. Hot reloads changed namespaces."
+  [port]
   (jetty/run-jetty
    (wrap-reload #'app)
    {:port (Integer. port)}))
