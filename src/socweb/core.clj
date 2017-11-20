@@ -1,18 +1,14 @@
 (ns socweb.core
   (:require [ring.adapter.jetty     :as    jetty]
             [ring.middleware.reload :refer [wrap-reload]]
+            [ring.handler.dump      :refer [handle-dump]]
             [compojure.core         :refer [defroutes GET]]
             [compojure.route        :refer [not-found]]))
 
 
 (defn hello [request]
   {:status 200
-   :body   "Hello, world!"})
-
-
-(defn goodbye [request]
-  {:status 200
-   :body   "Goodbye, world!"})
+   :body   "Website to visualise soccer penalty point stats."})
 
 
 (defn about [request]
@@ -22,7 +18,7 @@
 
 (defroutes app
   (GET "/"        [] hello)
-  (GET "/goodbye" [] goodbye)
+  (GET "/request" [] handle-dump) ;; standard ring handler; see dependencies
   (GET "/about"   [] about)
   (not-found "Page not found."))
 
