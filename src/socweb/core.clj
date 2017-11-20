@@ -5,16 +5,14 @@
             [compojure.route        :refer [not-found]]))
 
 
-(defn hello [req]
-  {:status  200
-   :body    "Hello, world!"
-   :header {}})
+(defn hello [request]
+  {:status 200
+   :body   "Hello, world!"})
 
 
-(defn goodbye [req]
-  {:status  200
-   :body    "Goodbye, world!"
-   :headers {}})
+(defn goodbye [request]
+  {:status 200
+   :body   "Goodbye, world!"})
 
 
 (defroutes app
