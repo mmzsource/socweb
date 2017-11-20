@@ -1,20 +1,31 @@
 (ns socweb.core
-  (:require [ring.adapter.jetty :as jetty]
-            [ring.middleware.reload :refer [wrap-reload]]))
+  (:require [ring.adapter.jetty     :as    jetty]
+            [ring.middleware.reload :refer [wrap-reload]]
+            [compojure.core         :refer [defroutes GET]]
+            [compojure.route        :refer [not-found]]))
 
-(defn greet [req]
-  (if (= (:uri req) "/")
-    {:status  200
-     :body    "Hello, world!"
-     :headers {}}
-    {:status  404
-     :body    "Not Found"
-     :headers {}}))
+
+(defn hello [req]
+  {:status  200
+   :body    "Hello, world!"
+   :header {}})
+
+
+(defn goodbye [req]
+  {:status  200
+   :body    "Goodbye, world!"
+   :headers {}})
+
+
+(defroutes app
+  (GET "/"        [] hello)
+  (GET "/goodbye" [] goodbye)
+  (not-found "Page not found."))
 
 
 (defn -main [port]
   (jetty/run-jetty
-   greet
+   app
    {:port (Integer. port)}))
 
 
@@ -22,5 +33,5 @@
 ;; Hot reloads changed namespaces
 (defn -dev-main [port]
   (jetty/run-jetty
-   (wrap-reload #'greet)
+   (wrap-reload #'app)
    {:port (Integer. port)}))

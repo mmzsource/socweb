@@ -16,7 +16,7 @@ competition.
 
 ## Lessons learned
 
-There are 3 parts to Ring:
+There are 3 parts to **Ring**:
 
 - Adapters
 - Handlers
@@ -39,6 +39,14 @@ the adapter. Example: add a content-type header. That's not a task that
 `defines` your web application. Therefore, the functionality should be added as
 middleware. Lots of default middleware available, e.g. wrap-reload to reload all
 changed namespaces on request.
+
+There are 2 parts to **Compojure**:
+
+- Routing; running different code based on the URL path (e.g. "/", "/about")
+- HTTP Method switching: running different code based on the called HTTP request
+  method (e.g. GET, POST, PUT, DELETE)
+
+
 
 ## License
 
