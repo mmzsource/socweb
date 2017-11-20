@@ -6,6 +6,11 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.6.3"]
                  [compojure "1.6.0"]]
+
+  :min-lein-version "2.0.0"
+
+  :uberjar-name "socweb.jar"
+
   :main socweb.core
 
   :profiles {:dev
