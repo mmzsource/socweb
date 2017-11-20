@@ -1,14 +1,19 @@
 # socweb
 
-A Clojure library designed to ... well, that part is up to you.
+A clojure project meant to improve my clojure webdev skills.
+
+The idea is to deploy:
+
+- A simple REST service
+- A simple Web UI
+
+Together they'll calculate and present the current standing in a penalty point
+competition.
 
 ## Usage
 
-FIXME
+`lein run 8000` if you want to run the webserver on port 8000
 
 ## License
 
-Copyright © 2017 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Use the code the way you want it at your own risk. It is not copyrighted.
