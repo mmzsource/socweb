@@ -15,9 +15,15 @@
    :body   "Goodbye, world!"})
 
 
+(defn about [request]
+  {:status 200}
+  {:body   "Soccer penalty point stats will follow soon."})
+
+
 (defroutes app
   (GET "/"        [] hello)
   (GET "/goodbye" [] goodbye)
+  (GET "/about"   [] about)
   (not-found "Page not found."))
 
 
