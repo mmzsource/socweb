@@ -15,7 +15,10 @@ competition.
 `lein run 8000` if you want to run the webserver on port 8000
 `git push heroku master` if you want to deploy on heroku
 
-The (developing) website is [here](https://legendary-mastermind-science.herokuapp.com)
+The (developing) website is
+[here](https://legendary-mastermind-science.herokuapp.com). Because it's a free
+heroku app, it'll spin down within half an hour (or something like that), so the
+first call to the webpage might take a while to return; app has to spin up again.
 
 ## Lessons learned
 
