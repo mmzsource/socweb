@@ -1,9 +1,14 @@
 (ns socweb.core
+  (:require [socweb.league.handler  :refer [handle-leagues]])
   (:require [ring.adapter.jetty     :as    jetty]
+            [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.handler.dump      :refer [handle-dump]]
             [compojure.core         :refer [defroutes GET]]
             [compojure.route        :refer [not-found]]))
+
+
+(def db "jdbc:postgresql://localhost/lms")
 
 
 (defn welcome [request]
@@ -35,12 +40,26 @@
        :body   (str "Unknown operator: " op " Supported operators: + - * :")})))
 
 
-(defroutes app
+(defroutes routes
   (GET "/"         [] welcome)
   (GET "/about"    [] about)
   (GET "/request"  [] handle-dump) ;; standard ring handler; see dependencies
   (GET "/calc/:x/:op/:y" [] calc)
+
+  (GET "/leagues" [] handle-leagues)
+
   (not-found "Page not found."))
+
+
+(defn wrap-db [hdlr]
+  (fn [request]
+    (hdlr (assoc request :socweb/db db))))
+
+
+(def app
+  (wrap-db
+   (wrap-params
+    routes)))
 
 
 (defn -main [port]
