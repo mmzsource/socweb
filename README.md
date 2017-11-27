@@ -20,6 +20,67 @@ The (developing) website is
 heroku app, it'll spin down within half an hour (or something like that), so the
 first call to the webpage might take a while to return; app has to spin up again.
 
+## Setup
+
+### Prerequisites
+
+- Java installed
+- Leiningen installed
+- Postgresql installed
+
+### Postgresql
+
+#### MacOS
+
+Prerequisite: homebrew installed and updated, no earlier version of postgresql on the machine
+(check with 'which psql'), brew services installed (otherwise install with brew tap gapple/services)
+
+```bash
+brew install postgres                    # Install postgres via homebrew
+brew services start postgres             # Start postgres service OR start manually:
+pg_ctl -D /usr/local/var/postgres start
+which psql                               # Check if the path is ok.
+ps aux | grep postgres                   # Check postgres processes
+psql -l                                  # List current databases in postgres
+```
+
+Create PostgreSQL roles:
+
+```bash
+createuser --echo --createdb --encrypted --pwprompt lms-client
+## type in lms-client password
+createuser --echo --createdb --createrole --superuser --encrypted --pwprompt lms-admin
+## type in lms-admin password
+```
+
+Create Database:
+
+```bash
+createdb --echo --template=template0 --encoding=utf8 --locale=en_US --owner=lms-client lms
+```
+
+Delete Database (when needed):
+
+```bash
+dropdb --echo --interactive lms
+```
+
+Some psql statements which might come in handy:
+
+```bash
+psql postgres
+SELECT * FROM pg_stat_activity WHERE datname='lms';
+\?              # list of very useful pqsl shortcuts e.g.:
+\l              # list all databases
+\d              # list all public tables
+\d <tablename>  # describe table
+\du             # describe user roles
+```
+
+- [PostgreSQL query plan visualization](http://tatiyants.com/postgres-query-plan-visualization/)
+- [PostgreSQL date-time calculations](http://www.tutorialspoint.com/postgresql/postgresql_date_time.htm)
+
+
 ## Lessons learned
 
 There are 3 parts to **Ring**:
