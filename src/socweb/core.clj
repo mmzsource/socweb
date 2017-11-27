@@ -1,5 +1,5 @@
 (ns socweb.core
-  (:require [socweb.league.handler  :refer [handle-leagues]])
+  (:require [socweb.league.handler  :refer [handle-get-leagues]])
   (:require [ring.adapter.jetty     :as    jetty]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.reload :refer [wrap-reload]]
@@ -21,32 +21,13 @@
   {:body   "Soccer penalty point stats will follow soon."})
 
 
-(def ops
-  {"+" +
-   "-" -
-   "*" *
-   ":" /})
-
-
-(defn calc [request]
-  (let [op          (get-in request [:route-params :op])
-        x (Integer. (get-in request [:route-params :x]))
-        y (Integer. (get-in request [:route-params :y]))
-        f (get ops op)]
-    (if f
-      {:status 200
-       :body   (str x " " op " " y " = " (f x y))}
-      {:status 404
-       :body   (str "Unknown operator: " op " Supported operators: + - * :")})))
-
-
 (defroutes routes
   (GET "/"         [] welcome)
   (GET "/about"    [] about)
-  (GET "/request"  [] handle-dump) ;; standard ring handler; see dependencies
-  (GET "/calc/:x/:op/:y" [] calc)
 
-  (GET "/leagues" [] handle-leagues)
+  (GET "/request"  [] handle-dump) ;; standard ring handler; see dependencies
+
+  (GET "/leagues" [] handle-get-leagues)
 
   (not-found "Page not found."))
 

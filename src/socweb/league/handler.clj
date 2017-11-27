@@ -1,10 +1,9 @@
 (ns socweb.league.handler
-  (:require [socweb.league.model :refer [read-leagues]]))
+  (:require [socweb.league.model :refer [get-leagues]]
+            [socweb.league.view  :refer [league-page]]))
 
-(defn handle-leagues [request]
+(defn handle-get-leagues [request]
   (let [db      (:socweb/db request)
-        leagues (read-leagues db)]
+        leagues (get-leagues db)]
     {:status 200
-     :body (str "<html><head></head><body><div>"
-                (mapv :name leagues)
-                "</div></body></html>")}))
+     :body (league-page leagues)}))

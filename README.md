@@ -120,6 +120,16 @@ There are 2 parts to **Compojure**:
   method (e.g. GET, POST, PUT, DELETE)
 
 
+## Ideas
+
+- Update Table leagues with column 'standings' with links to standing. Make the
+  league logo's clickable:
+  - http://www.skysports.com/eredivisie-table
+  - http://www.skysports.com/premier-league-table
+  - http://www.skysports.com/la-liga-table
+  - http://www.skysports.com/bundesliga-table
+
+
 ## License
 
 Use the code the way you want it at your own risk. It is not copyrighted.

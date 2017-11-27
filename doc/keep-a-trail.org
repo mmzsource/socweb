@@ -20,6 +20,8 @@ createdb --echo --template=template0 --encoding=utf8 --locale=en_US
 
 - =M-x sql-postgres RET <login to correct db with correct credentials>=
 
+Seems I don't need [[https://stackoverflow.com/a/39283023][this one]].
+
 ** Schema
 
 #+begin_src sql
@@ -27,5 +29,5 @@ CREATE TABLE IF NOT EXISTS league
   (id       SERIAL UNIQUE,
    name     VARCHAR(128),
    code     VARCHAR(3),
-   icon     VARCHAR(256));
+   logo     VARCHAR(256));
 #+end_src
