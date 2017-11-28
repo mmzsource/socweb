@@ -37,10 +37,11 @@ Prerequisite: homebrew installed and updated, no earlier version of postgresql o
 
 ```bash
 brew install postgres                    # Install postgres via homebrew
-brew services start postgres             # Start postgres service OR start manually:
-pg_ctl -D /usr/local/var/postgres start
-which psql                               # Check if the path is ok.
+brew services start postgres             # Start postgres service OR
+pg_ctl -D /usr/local/var/postgres start  # Start postgres service manually
+pg_ctl -D /usr/local/var/postgres stop   # (to stop manually when needed)
 ps aux | grep postgres                   # Check postgres processes
+which psql                               # Check if the path is ok
 psql -l                                  # List current databases in postgres
 ```
 
