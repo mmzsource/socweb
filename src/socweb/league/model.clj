@@ -4,6 +4,6 @@
 (defn get-leagues [db]
   (db/query
    db
-   ["SELECT   id, name, code, logo
+   ["SELECT   id, name, code, logo, standings
      FROM     league
      ORDER BY id ASC"]))

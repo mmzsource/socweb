@@ -119,16 +119,9 @@ There are 2 parts to **Compojure**:
 - HTTP Method switching: running different code based on the called HTTP request
   method (e.g. GET, POST, PUT, DELETE)
 
-
 ## Ideas
 
-- Update Table leagues with column 'standings' with links to standing. Make the
-  league logo's clickable:
-  - http://www.skysports.com/eredivisie-table
-  - http://www.skysports.com/premier-league-table
-  - http://www.skysports.com/la-liga-table
-  - http://www.skysports.com/bundesliga-table
-
+- Push newest version to heroku (setup db first)
 
 ## License
 

@@ -26,8 +26,9 @@ Seems I don't need [[https://stackoverflow.com/a/39283023][this one]].
 
 #+begin_src sql
 CREATE TABLE IF NOT EXISTS league
-  (id       SERIAL UNIQUE,
-   name     VARCHAR(128),
-   code     VARCHAR(3),
-   logo     VARCHAR(256));
+  (id        SERIAL UNIQUE,
+   name      VARCHAR(32),
+   code      VARCHAR(3),
+   logo      VARCHAR(128),
+   standings VARCHAR(128));
 #+end_src

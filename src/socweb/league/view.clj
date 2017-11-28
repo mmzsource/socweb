@@ -12,7 +12,8 @@
             (for [league leagues]
               [:tr
                [:td
-                [:img
-                 {:src   (h (:logo league))
-                  :style "width:128px;height:128px;"
-                  :alt   (h (:name league))}]]])]]]))
+                [:a {:href   (h (:standings league))
+                     :target "_blank"}
+                 [:img {:src   (h (:logo league))
+                        :style "width:128px;height:128px;"
+                        :alt   (h (:name league))}]]]])]]]))
