@@ -49,20 +49,22 @@ SELECT id, name, code, logo FROM league;
 
 -- COMPETITIONS - WIP
 
+DROP TABLE competition;
+
 CREATE TABLE IF NOT EXISTS competition
-  (id            SERIAL UNIQUE,
-   league        SERIAL REFERENCES league (id),
-   code          VARCHAR(8),
-   name          VARCHAR(32),
-   season        VARCHAR(32),
-   matchdays     INTEGER,
-   current_md    INTEGER,
-   last_modified CURRENT_TIMESTAMP);
+  (id               SERIAL UNIQUE,
+   league           SERIAL REFERENCES league (id),
+   code             VARCHAR(8),
+   name             VARCHAR(32),
+   season           VARCHAR(32),
+   matchdays        INTEGER,
+   current_matchday INTEGER,
+   last_modified    TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
 CREATE OR REPLACE FUNCTION update_lastmodified_column()
         RETURNS TRIGGER AS '
   BEGIN
-    NEW.lastmodified = NOW();
+    NEW.last_modified = NOW();
     RETURN NEW;
   END;
 ' LANGUAGE 'plpgsql';
@@ -70,3 +72,22 @@ CREATE OR REPLACE FUNCTION update_lastmodified_column()
 CREATE TRIGGER update_lastmodified_time BEFORE UPDATE
   ON competition FOR EACH ROW EXECUTE PROCEDURE
   update_lastmodified_column();
+
+SELECT * FROM competition;
+
+INSERT INTO competition (league, code, name, season, matchdays, current_matchday)
+  VALUES
+  ((SELECT id FROM league WHERE code = 'EDE'),
+   'EDE-2017',
+   'Eredivisie seizoen 2017-2018',
+   '2017-2018',
+   34,
+   14);
+
+SELECT * FROM competition; -- Notice last_modified
+
+UPDATE competition SET current_matchday = 15 WHERE code = 'EDE-2017';
+
+SELECT * FROM competition; -- last_modified updated?
+
+DELETE FROM competition WHERE league = 1;
