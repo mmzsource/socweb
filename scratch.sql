@@ -51,6 +51,8 @@ SELECT id, name, code, logo FROM league;
 
 DROP TABLE competition;
 
+DELETE FROM competition WHERE league = 1;
+
 CREATE TABLE IF NOT EXISTS competition
   (id               SERIAL UNIQUE,
    league           SERIAL REFERENCES league (id),
@@ -79,7 +81,7 @@ INSERT INTO competition (league, code, name, season, matchdays, current_matchday
   VALUES
   ((SELECT id FROM league WHERE code = 'EDE'),
    'EDE-2017',
-   'Eredivisie seizoen 2017-2018',
+   (SELECT name FROM league WHERE code = 'EDE') || ' 2017-2018',
    '2017-2018',
    34,
    14);
@@ -90,4 +92,31 @@ UPDATE competition SET current_matchday = 15 WHERE code = 'EDE-2017';
 
 SELECT * FROM competition; -- last_modified updated?
 
-DELETE FROM competition WHERE league = 1;
+INSERT INTO competition (league, code, name, season, matchdays, current_matchday)
+  VALUES
+  ((SELECT id FROM league WHERE code = 'PLE'),
+   'PLE-2017',
+   (SELECT name FROM league WHERE code = 'PLE') || ' 2017-2018',
+   '2017-2018',
+   38,
+   15);
+
+INSERT INTO competition (league, code, name, season, matchdays, current_matchday)
+  VALUES
+  ((SELECT id FROM league WHERE code = 'PDN'),
+   'PDN-2017',
+   (SELECT name FROM league WHERE code = 'PDN') || ' 2017-2018',
+   '2017-2018',
+   38,
+   15);
+
+INSERT INTO competition (league, code, name, season, matchdays, current_matchday)
+  VALUES
+  ((SELECT id FROM league WHERE code = '1BL'),
+   '1BL-2017',
+   (SELECT name FROM league WHERE code = '1BL') || ' 2017-2018',
+   '2017-2018',
+   36,
+   15);
+
+SELECT * FROM competition;
