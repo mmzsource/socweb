@@ -1,4 +1,8 @@
+-- CONNECTION TEST
+
 SELECT * from USER;
+
+-- LEAGUES
 
 CREATE TABLE IF NOT EXISTS league
   (id        SERIAL UNIQUE,
@@ -42,3 +46,27 @@ INSERT INTO league (name, code, logo, standings)
 SELECT * FROM league;
 
 SELECT id, name, code, logo FROM league;
+
+-- COMPETITIONS - WIP
+
+CREATE TABLE IF NOT EXISTS competition
+  (id            SERIAL UNIQUE,
+   league        SERIAL REFERENCES league (id),
+   code          VARCHAR(8),
+   name          VARCHAR(32),
+   season        VARCHAR(32),
+   matchdays     INTEGER,
+   current_md    INTEGER,
+   last_modified CURRENT_TIMESTAMP);
+
+CREATE OR REPLACE FUNCTION update_lastmodified_column()
+        RETURNS TRIGGER AS '
+  BEGIN
+    NEW.lastmodified = NOW();
+    RETURN NEW;
+  END;
+' LANGUAGE 'plpgsql';
+
+CREATE TRIGGER update_lastmodified_time BEFORE UPDATE
+  ON competition FOR EACH ROW EXECUTE PROCEDURE
+  update_lastmodified_column();
