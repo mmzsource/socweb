@@ -119,4 +119,4 @@ INSERT INTO competition (league, code, name, season, matchdays, current_matchday
    36,
    15);
 
-SELECT * FROM competition;
+SELECT name, matchdays FROM competition;
